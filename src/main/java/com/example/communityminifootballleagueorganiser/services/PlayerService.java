@@ -12,7 +12,7 @@ public interface PlayerService {
 
     PlayerDTO getPlayerById(Long playerId);
 
-    PlayerDTO updatePlayer(Long playerId, PlayerDTO updatedPlayerDto);
+    PlayerDTO updatePlayerById(Long playerId, PlayerDTO updatedPlayerDto);
 
     void deletePlayerById(Long playerId);
 }

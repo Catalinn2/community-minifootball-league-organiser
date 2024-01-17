@@ -45,7 +45,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public PlayerDTO updatePlayer(Long playerId, PlayerDTO updatedPlayerDto) {
+    public PlayerDTO updatePlayerById(Long playerId, PlayerDTO updatedPlayerDto) {
         Player existingPlayer = playerServiceValidation.getValidPlayer(playerId, "updatePlayer");
         existingPlayer.setFirstName(updatedPlayerDto.getFirstName());
         existingPlayer.setLastName(updatedPlayerDto.getLastName());

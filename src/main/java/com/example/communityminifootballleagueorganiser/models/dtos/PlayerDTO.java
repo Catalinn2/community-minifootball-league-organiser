@@ -14,12 +14,13 @@ public class PlayerDTO {
 
     private Long id;
     @NotBlank
-    @Size(min = 3, max = 20,, message = "first name must be between 3  and 20 characters")
+    @Size(min = 3, max = 20, message = "first name must be between 3  and 20 characters")
     private String firstName;
     @NotBlank
-    @Size(min = 3, max = 20,, message = "last name must be between 3  and 20 characters")
+    @Size(min = 3, max = 20, message = "last name must be between 3  and 20 characters")
     private String lastName;
     @Size(min = 0)
     private int goals;
     private Map<String, String> playerPosition = new HashMap<>();
+    private int legitimationNumber;
 }

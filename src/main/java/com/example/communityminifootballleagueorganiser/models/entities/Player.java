@@ -23,11 +23,12 @@ public class Player {
     private String lastName;
     @Column(name = "goals")
     private int goals;
+    @Column(name = "legitimation_number")
+    private int legitimationNumber;
     @ElementCollection
     @CollectionTable(name = "player_position",
-            joinColumns = @JoinColumn(name = "player_id"),
+            joinColumns = @JoinColumn(name = "player_id")
     )
     @MapKeyColumn(name = "player")
-    @Column(name = "player_position")
     private Map<String, String> playerPosition = new LinkedHashMap<>();
 }
