@@ -1,11 +1,11 @@
-package com.example.communityminifootballleagueorganiser.services;
+package com.example.communityminifootballleagueorganiser.services.player_services;
 
 import com.example.communityminifootballleagueorganiser.models.dtos.PlayerDTO;
 import com.example.communityminifootballleagueorganiser.models.entities.Player;
 
 public interface PlayerServiceValidation {
 
-    void validatePlayerAlreadyExist(PlayerDTO playerDTO);
+    void playerAlreadyExist(PlayerDTO playerDTO);
 
-    Player getValidPlayer(Long playerId, String methodName);
+    Player getValidPlayer(Long playerId);
 }
