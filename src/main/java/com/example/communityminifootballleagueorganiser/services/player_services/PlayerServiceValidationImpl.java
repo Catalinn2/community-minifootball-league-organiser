@@ -1,12 +1,12 @@
-package com.example.communityminifootballleagueorganiser.services;
+package com.example.communityminifootballleagueorganiser.services.player_services;
 
+import com.example.communityminifootballleagueorganiser.exceptions.Player.PlayerAlreadyExistException;
 import com.example.communityminifootballleagueorganiser.exceptions.Player.PlayerNotFoundException;
 import com.example.communityminifootballleagueorganiser.models.dtos.PlayerDTO;
 import com.example.communityminifootballleagueorganiser.models.entities.Player;
 import com.example.communityminifootballleagueorganiser.repositories.PlayerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Slf4j
@@ -23,18 +23,16 @@ public class PlayerServiceValidationImpl implements PlayerServiceValidation {
     public void playerAlreadyExist(PlayerDTO playerDTO) {
         Player playerFound = playerRepository.findPlayerByLegitimationNumber(playerDTO.getLegitimationNumber());
         if (playerFound != null) {
-            String errorMessage = "Player with " + playerDTO.getLegitimationNumber() + " legitimation number already exist!";
-            throw new errorMessage;
+            throw new PlayerAlreadyExistException("Player with " + playerDTO.getLegitimationNumber() + " legitimation number already exist!");
         }
     }
 
 
     @Override
-    public Player getValidPlayer(Long playerId, String methodName) {
+    public Player getValidPlayer(Long playerId) {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("Player with the id " + playerId + " not found."));
-        log.info("Player with the id {} : {}", playerId, methodName);
+        log.info("Player with the id {} not found", playerId);
         return player;
-
     }
 }

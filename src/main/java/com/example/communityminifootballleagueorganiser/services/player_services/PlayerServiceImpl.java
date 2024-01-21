@@ -1,4 +1,4 @@
-package com.example.communityminifootballleagueorganiser.services;
+package com.example.communityminifootballleagueorganiser.services.player_services;
 
 import com.example.communityminifootballleagueorganiser.models.dtos.PlayerDTO;
 import com.example.communityminifootballleagueorganiser.models.entities.Player;
@@ -21,7 +21,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO createPlayer(PlayerDTO playerDTO) {
-        playerServiceValidation.validatePlayerAlreadyExist(playerDTO);
+        playerServiceValidation.playerAlreadyExist(playerDTO);
         Player player = modelMapper.map(playerDTO, Player.class);
         Player savedPlayer = playerRepository.save(player);
         log.info("Player {} / {} created.", savedPlayer.getId(), savedPlayer.getFirstName());
@@ -31,7 +31,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public List<PlayerDTO> getAllPlayers() {
         List<Player> playerList = playerRepository.findAll();
-        log.info("Player list : {}", "getAllPlayers");
+        log.info("Player list : ");
         return playerList.stream()
                 .map(player -> modelMapper.map(player, PlayerDTO.class))
                 .toList();
@@ -39,14 +39,14 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO getPlayerById(Long playerId) {
-        Player player = playerServiceValidation.getValidPlayer(playerId, "getPlayerById");
-        log.info("Player with id {} : {}", playerId, "getPlayerById");
+        Player player = playerServiceValidation.getValidPlayer(playerId);
+        log.info("Player with id {} ", playerId);
         return modelMapper.map(player, PlayerDTO.class);
     }
 
     @Override
     public PlayerDTO updatePlayerById(Long playerId, PlayerDTO updatedPlayerDto) {
-        Player existingPlayer = playerServiceValidation.getValidPlayer(playerId, "updatePlayer");
+        Player existingPlayer = playerServiceValidation.getValidPlayer(playerId);
         existingPlayer.setFirstName(updatedPlayerDto.getFirstName());
         existingPlayer.setLastName(updatedPlayerDto.getLastName());
         existingPlayer.setPlayerPosition(updatedPlayerDto.getPlayerPosition());
@@ -59,8 +59,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void deletePlayerById(Long playerId) {
-        playerServiceValidation.getValidPlayer(playerId, "deletePlayerById");
+        playerServiceValidation.getValidPlayer(playerId);
         playerRepository.deleteById(playerId);
-        log.info("Player with id {} deleted");
+        log.info("Player with id {} deleted", playerId);
     }
 }

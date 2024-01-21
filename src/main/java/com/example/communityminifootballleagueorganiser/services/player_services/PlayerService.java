@@ -1,4 +1,4 @@
-package com.example.communityminifootballleagueorganiser.services;
+package com.example.communityminifootballleagueorganiser.services.player_services;
 
 import com.example.communityminifootballleagueorganiser.models.dtos.PlayerDTO;
 

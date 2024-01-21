@@ -1,6 +1,5 @@
 package com.example.communityminifootballleagueorganiser.models.dtos;
 
-import com.example.communityminifootballleagueorganiser.services.PlayerService;
 import com.example.communityminifootballleagueorganiser.utils.enums.PlayerPosition;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
