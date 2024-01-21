@@ -19,16 +19,16 @@ public class PlayerServiceValidationImpl implements PlayerServiceValidation {
         this.playerRepository = playerRepository;
     }
 
-    @Transactional
     @Override
-    public void validatePlayerAlreadyExist(PlayerDTO playerDTO) {
+    public void playerAlreadyExist(PlayerDTO playerDTO) {
         Player playerFound = playerRepository.findPlayerByLegitimationNumber(playerDTO.getLegitimationNumber());
         if (playerFound != null) {
-            throw new PlayerNotFoundException("Player with " + playerDTO.getLegitimationNumber() + " legitimation number already exist!");
+            String errorMessage = "Player with " + playerDTO.getLegitimationNumber() + " legitimation number already exist!";
+            throw new errorMessage;
         }
     }
 
-    @Transactional
+
     @Override
     public Player getValidPlayer(Long playerId, String methodName) {
         Player player = playerRepository.findById(playerId)

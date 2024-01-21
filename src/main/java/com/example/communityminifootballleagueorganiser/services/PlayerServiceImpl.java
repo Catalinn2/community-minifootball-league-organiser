@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -22,6 +21,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO createPlayer(PlayerDTO playerDTO) {
+        playerServiceValidation.validatePlayerAlreadyExist(playerDTO);
         Player player = modelMapper.map(playerDTO, Player.class);
         Player savedPlayer = playerRepository.save(player);
         log.info("Player {} / {} created.", savedPlayer.getId(), savedPlayer.getFirstName());
