@@ -20,7 +20,7 @@ public class LeagueServiceValidationImpl implements LeagueServiceValidation {
 
     @Override
     public void validateUniqueLeagueName(String leagueName) {
-        if (leagueRepository.existByName(leagueName)) {
+        if (leagueRepository.existsByName(leagueName)) {
             throw new LeagueNameAlreadyExistException("League with name :  " + leagueName + "already exist!");
         }
     }
