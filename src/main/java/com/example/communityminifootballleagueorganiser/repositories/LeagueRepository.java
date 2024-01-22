@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface LeagueRepository extends JpaRepository<League, Long> {
 
 
-    boolean existByName(String name);
+    boolean existsByName(String name);
 }
