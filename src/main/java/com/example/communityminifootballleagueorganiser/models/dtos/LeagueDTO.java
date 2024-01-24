@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class LeagueDTO {
 
-    private Long leagueId;
-    private String leagueName;
+    private Long id;
+    private String name;
     private List<TeamDTO> teamList;
     private List<MatchDTO> matchList;
 }

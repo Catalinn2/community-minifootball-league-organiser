@@ -21,11 +21,12 @@ public class TeamDTO {
 
     private Long teamId;
     @NotEmpty
-    private String teamName;
+    private String name;
 
     private League league;
 
     private List<PlayerDTO> playerList;
+
 }
 
 

@@ -34,5 +34,8 @@ public class Player {
     private int goals;
     @Column(name = "legitimation_number", unique = true)
     private int legitimationNumber;
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
 }

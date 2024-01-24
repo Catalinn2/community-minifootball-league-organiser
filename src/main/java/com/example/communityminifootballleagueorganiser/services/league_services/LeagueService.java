@@ -11,6 +11,6 @@ public interface LeagueService {
     List<LeagueDTO> getAllLeagues();
     LeagueDTO getLeagueById(Long leagueId);
 
-    LeagueDTO upDateLeagueName(Long leagueId, LeagueDTO leagueDTO);
+    LeagueDTO updateLeagueName(Long leagueId, LeagueDTO leagueDTO);
     void deleteLeague(Long leagueId);
 }

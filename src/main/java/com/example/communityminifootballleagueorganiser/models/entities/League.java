@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class League {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long leagueId;
-    @NotEmpty
-    @Column(name = "league_name")
-    private String leagueName;
+    private Long id;
+    @NotNull
+    @Column(name = "name")
+    private String name;
     @OneToMany(mappedBy = "league", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Team> teamList = new ArrayList<>();
     @OneToMany(mappedBy = "league", orphanRemoval = true, cascade = CascadeType.ALL)

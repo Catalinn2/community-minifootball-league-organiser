@@ -23,10 +23,12 @@ public class Team {
     private Long teamId;
     @NotEmpty
     @Column(name = "team_name")
-    private String teamName;
+    private String name;
     @ManyToOne
     @JoinColumn(name = "league_id")
     private League league;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
+    @Column(name = "points")
+    private int points;
 }
