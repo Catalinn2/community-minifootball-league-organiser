@@ -21,17 +21,17 @@ public class LeagueServiceImp implements LeagueService {
 
     @Override
     public LeagueDTO createLeague(LeagueDTO leagueDTO) {
-        leagueServiceValidation.validateUniqueLeagueName(leagueDTO.getLeagueName());
+        leagueServiceValidation.validateUniqueLeagueName(leagueDTO.getName());
         League league = modelMapper.map(leagueDTO, League.class);
         League savedLeague = leagueRepository.save(league);
-        log.info("League with : id " + savedLeague.getLeagueId() + " : " + savedLeague.getLeagueName() + " created.");
+        log.info("League with : id " + savedLeague.getId() + " : " + savedLeague.getName() + " created.");
         return modelMapper.map(savedLeague, LeagueDTO.class);
     }
 
     @Override
     public List<LeagueDTO> getAllLeagues() {
         List<League> leagueList = leagueRepository.findAll();
-        log.info("League list : ");
+        log.info("League list accesed.");
         return leagueList.stream()
                 .map(league -> modelMapper.map(league, LeagueDTO.class))
                 .toList();
@@ -46,11 +46,11 @@ public class LeagueServiceImp implements LeagueService {
     }
 
     @Override
-    public LeagueDTO upDateLeagueName(Long leagueId, LeagueDTO leagueDTO ) {
+    public LeagueDTO updateLeagueName(Long leagueId, LeagueDTO leagueDTO ) {
         League existingLeague = leagueServiceValidation.getValidLeague(leagueId);
-        existingLeague.setLeagueName(leagueDTO.getLeagueName());
+        existingLeague.setName(leagueDTO.getName());
         League updatedLeague = leagueRepository.save(existingLeague);
-        log.info("Name for league id : " + leagueId + " has changed. New name : " + leagueDTO.getLeagueName());
+        log.info("Name for league id : " + leagueId + " has changed. New name : " + leagueDTO.getName());
         return modelMapper.map(updatedLeague, LeagueDTO.class);
     }
 

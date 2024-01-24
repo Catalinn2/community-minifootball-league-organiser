@@ -27,4 +27,5 @@ public class PlayerDTO {
     private int goals;
 
     private int legitimationNumber;
+    private TeamDTO team;
 }
