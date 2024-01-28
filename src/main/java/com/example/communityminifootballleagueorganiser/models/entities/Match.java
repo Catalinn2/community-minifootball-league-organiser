@@ -22,12 +22,9 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "league_id")
     private League league;
-    @ManyToMany
-    @JoinTable(
-            name = "team_match",
-            joinColumns = @JoinColumn(name = "match_id"),
-            inverseJoinColumns = @JoinColumn(name = "team_id")
-    )
-    private List<Team> teamList = new ArrayList<>();
+    @Column(name = "team1")
+    private Team team1;
+    @Column(name = "team2")
+    private Team team2;
 
 }

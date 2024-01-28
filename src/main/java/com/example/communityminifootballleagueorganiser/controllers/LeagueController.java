@@ -4,8 +4,15 @@ import com.example.communityminifootballleagueorganiser.exceptions.League.League
 import com.example.communityminifootballleagueorganiser.exceptions.League.LeagueNotFoundException;
 import com.example.communityminifootballleagueorganiser.exceptions.Player.PlayerAlreadyExistException;
 import com.example.communityminifootballleagueorganiser.models.dtos.LeagueDTO;
+import com.example.communityminifootballleagueorganiser.models.dtos.PlayerDTO;
+import com.example.communityminifootballleagueorganiser.models.dtos.TeamDTO;
 import com.example.communityminifootballleagueorganiser.models.entities.League;
+import com.example.communityminifootballleagueorganiser.models.entities.Team;
 import com.example.communityminifootballleagueorganiser.services.league_services.LeagueService;
+import com.example.communityminifootballleagueorganiser.services.team_services.TeamService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +21,16 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/league")
+@RequestMapping("/api/leagues")
 public class LeagueController {
 
-    private final LeagueService leagueService;
 
-    public LeagueController(LeagueService leagueService) {
+    private final LeagueService leagueService;
+    private final TeamService teamService;
+
+    public LeagueController(LeagueService leagueService, TeamService teamService) {
         this.leagueService = leagueService;
+        this.teamService = teamService;
     }
 
     @PostMapping
@@ -57,5 +67,23 @@ public class LeagueController {
     public ResponseEntity<String> deleteLeagueById(@PathVariable Long leagueId) {
         leagueService.deleteLeague(leagueId);
         return ResponseEntity.ok("League with id: " + leagueId + " deleted.");
+    }
+
+    @PostMapping("/{leagueId}/teams/{teamId}")
+    public ResponseEntity<String> addTeamToLeague(@PathVariable Long leagueId, @PathVariable Long teamId) {
+        leagueService.addTeamToLeague(leagueId, teamId);
+        return ResponseEntity.ok("Team with id: " + teamId + " added to the league with id: " + leagueId);
+    }
+
+    @GetMapping("/{leagueId}/teams")
+    public ResponseEntity<List<TeamDTO>> getTeamNamesByLeague(@PathVariable Long leagueId) {
+        List<TeamDTO> teamNames = leagueService.getTeamsByLeague(leagueId);
+        return ResponseEntity.ok(teamNames);
+    }
+
+    @GetMapping("/{leagueId}/players")
+    public ResponseEntity<List<PlayerDTO>> getPlayersByName(@PathVariable Long leagueId) {
+        List<PlayerDTO> playerList = leagueService.getPlayersByLeague(leagueId);
+        return ResponseEntity.ok(playerList);
     }
 }

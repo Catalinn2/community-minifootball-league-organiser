@@ -17,7 +17,7 @@ public class TeamServiceValidationImpl implements TeamServiceValidation {
 
     @Override
     public void validateUniqueName(String teamName) {
-        if (teamRepository.existByName(teamName)) {
+        if (teamRepository.existsByName(teamName)) {
             throw new TeamNameAlreadyExistException("Team with " + teamName + " name already exist! Please try another name!");
         }
     }

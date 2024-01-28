@@ -8,6 +8,8 @@ public interface PlayerService {
 
     PlayerDTO createPlayer(PlayerDTO playerDTO);
 
+    List<PlayerDTO> createPlayers(List<PlayerDTO> playerDTOS);
+
     List<PlayerDTO> getAllPlayers();
 
     PlayerDTO getPlayerById(Long playerId);
@@ -15,4 +17,5 @@ public interface PlayerService {
     PlayerDTO updatePlayerById(Long playerId, PlayerDTO updatedPlayerDto);
 
     void deletePlayerById(Long playerId);
+
 }

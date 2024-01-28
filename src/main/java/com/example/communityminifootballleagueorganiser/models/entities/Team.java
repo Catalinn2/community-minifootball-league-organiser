@@ -1,5 +1,6 @@
 package com.example.communityminifootballleagueorganiser.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,13 +22,13 @@ public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teamId;
-    @NotEmpty
-    @Column(name = "team_name")
+    @Column(name = "name")
     private String name;
     @ManyToOne
-    @JoinColumn(name = "league_id")
+    @JoinColumn(name = "league_id", nullable = true)
+    @JsonBackReference
     private League league;
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<Player> playerList = new ArrayList<>();
     @Column(name = "points")
     private int points;

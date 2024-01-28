@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -26,6 +27,20 @@ public class PlayerServiceImpl implements PlayerService {
         Player savedPlayer = playerRepository.save(player);
         log.info("Player {} / {} created.", savedPlayer.getId(), savedPlayer.getFirstName());
         return modelMapper.map(savedPlayer, PlayerDTO.class);
+    }
+
+    @Override
+    public List<PlayerDTO> createPlayers(List<PlayerDTO> playerDTOS) {
+        playerDTOS.forEach(playerServiceValidation::playerAlreadyExist);
+        List<Player> players = playerDTOS.stream()
+                .map(playerDTO -> modelMapper.map(playerDTO, Player.class))
+                .collect(Collectors.toList());
+        List<Player> savedPlayers = playerRepository.saveAll(players);
+        log.info("Players created: {}", savedPlayers.size());
+
+        return savedPlayers.stream()
+                .map(player -> modelMapper.map(player, PlayerDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

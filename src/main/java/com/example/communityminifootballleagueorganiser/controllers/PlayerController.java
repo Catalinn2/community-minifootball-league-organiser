@@ -27,6 +27,12 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.createPlayer(playerDTO));
     }
 
+    @PostMapping("/bulk")
+    public ResponseEntity<List<PlayerDTO>> createPlayers(@RequestBody List<PlayerDTO> playerDTOList) {
+        List<PlayerDTO> createdPlayers = playerService.createPlayers(playerDTOList);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdPlayers);
+    }
+
     @ExceptionHandler(PlayerAlreadyExistException.class)
     public ResponseEntity<String> handlePlayerAlreadyExist(PlayerAlreadyExistException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
@@ -57,4 +63,5 @@ public class PlayerController {
     public ResponseEntity<PlayerDTO> updatePlayerById(@PathVariable Long playerId, PlayerDTO playerDTO) {
         return ResponseEntity.ok(playerService.updatePlayerById(playerId, playerDTO));
     }
+
 }

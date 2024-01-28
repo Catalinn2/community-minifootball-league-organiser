@@ -20,10 +20,10 @@ public class TeamDTO {
 
 
     private Long teamId;
-    @NotEmpty
+
     private String name;
 
-    private League league;
+    private String leagueName;
 
     private List<PlayerDTO> playerList;
 
