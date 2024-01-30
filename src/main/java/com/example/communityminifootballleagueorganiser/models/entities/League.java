@@ -28,5 +28,6 @@ public class League {
     private List<Team> teamList = new ArrayList<>();
     @OneToMany
     private List<Match> matchList = new ArrayList<>();
+    @Column(name = "is_started", nullable = false, columnDefinition = "boolean default false")
     boolean isStarded;
 }

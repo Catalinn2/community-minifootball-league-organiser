@@ -62,10 +62,13 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamDTO updateTeamName(Long teamId, TeamDTO teamDTO) {
+        if (teamDTO.getName() == null || teamDTO.getName().isEmpty()) {
+            throw new IllegalArgumentException("Team name cannot be null or empty");
+        }
         Team existingTeam = teamServiceValidation.getValidTeam(teamId);
         existingTeam.setName(teamDTO.getName());
         Team updatedTeam = teamRepository.save(existingTeam);
-        log.info("Name for team with id{} changed into {}", teamId, teamDTO.getName());
+        log.info("Name for team with id{} changed into {}", teamId, updatedTeam.getName());
         return modelMapper.map(updatedTeam, TeamDTO.class);
     }
 

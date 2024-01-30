@@ -18,4 +18,6 @@ public interface PlayerService {
 
     void deletePlayerById(Long playerId);
 
+    List<PlayerDTO> getTopScorers(Long leagueId);
+
 }

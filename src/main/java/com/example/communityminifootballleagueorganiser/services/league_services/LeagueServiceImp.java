@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -118,7 +119,7 @@ public class LeagueServiceImp implements LeagueService {
     public void generateMatches(League league) {
         List<Team> teams = league.getTeamList();
         for (int index = 0; index < teams.size(); index++) {
-            for (int jndex = 0; jndex < teams.size(); jndex++) {
+            for (int jndex = index + 1; jndex < teams.size(); jndex++) {
                 Match match = new Match();
                 match.setTeam1(teams.get(index));
                 match.setTeam2(teams.get(jndex));
@@ -126,5 +127,15 @@ public class LeagueServiceImp implements LeagueService {
                 matchRepository.save(match);
             }
         }
+    }
+
+    @Override
+    public List<TeamDTO> getLeagueLeaderboard(Long leagueId) {
+        League league = leagueServiceValidation.getValidLeague(leagueId);
+
+        return league.getTeamList().stream()
+                .sorted(Comparator.comparingInt(Team::getPoints).reversed())
+                .map(team -> modelMapper.map(team, TeamDTO.class))
+                .collect(Collectors.toList());
     }
 }

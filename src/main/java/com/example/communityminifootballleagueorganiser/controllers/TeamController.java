@@ -53,7 +53,7 @@ public class TeamController {
     }
 
     @PutMapping("/{teamId}")
-    public ResponseEntity<TeamDTO> updatedTeamName(@PathVariable Long teamId, TeamDTO teamDTO) {
+    public ResponseEntity<TeamDTO> updatedTeamName(@PathVariable Long teamId, @RequestBody TeamDTO teamDTO) {
         return ResponseEntity.ok(teamService.updateTeamName(teamId, teamDTO));
     }
 

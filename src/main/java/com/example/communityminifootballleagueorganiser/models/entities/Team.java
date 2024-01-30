@@ -24,6 +24,8 @@ public class Team {
     private Long teamId;
     @Column(name = "name")
     private String name;
+
+
     @ManyToOne
     @JoinColumn(name = "league_id", nullable = true)
     @JsonBackReference
@@ -32,4 +34,9 @@ public class Team {
     private List<Player> playerList = new ArrayList<>();
     @Column(name = "points")
     private int points;
+    @Column(name = "matches_played")
+    private Integer matchesPlayed = 0;
+    public Integer getMatchesPlayed() {
+        return this.matchesPlayed != null ? this.matchesPlayed : 0;
+    }
 }

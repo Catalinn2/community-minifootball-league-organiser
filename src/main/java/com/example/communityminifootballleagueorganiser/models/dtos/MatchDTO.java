@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,8 +19,7 @@ public class MatchDTO {
 
 
     private Long matchId;
-
-    private League league;
-
-    private List<Team> teamList;
+    private TeamDTO team1;
+    private TeamDTO team2;
+    private Long leagueId;
 }

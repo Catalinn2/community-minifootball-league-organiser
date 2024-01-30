@@ -26,4 +26,6 @@ public interface LeagueService {
     void startLeague(Long leagueId);
 
     void generateMatches(League league);
+
+    List<TeamDTO> getLeagueLeaderboard(Long leagueId);
 }

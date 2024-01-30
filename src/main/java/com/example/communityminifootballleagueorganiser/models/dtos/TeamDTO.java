@@ -25,7 +25,7 @@ public class TeamDTO {
 
     private String leagueName;
 
-    private List<PlayerDTO> playerList;
+    private int points;
 
 }
 

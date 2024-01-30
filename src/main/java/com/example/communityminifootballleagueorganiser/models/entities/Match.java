@@ -19,12 +19,18 @@ public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long matchId;
+
     @ManyToOne
     @JoinColumn(name = "league_id")
     private League league;
-    @Column(name = "team1")
+    @ManyToOne
+    @JoinColumn(name = "team1_id")
     private Team team1;
-    @Column(name = "team2")
+    @ManyToOne
+    @JoinColumn(name = "team2_id")
     private Team team2;
+
+    private Integer team1Score;
+    private Integer team2Score;
 
 }

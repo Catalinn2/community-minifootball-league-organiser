@@ -9,6 +9,7 @@ import com.example.communityminifootballleagueorganiser.models.dtos.TeamDTO;
 import com.example.communityminifootballleagueorganiser.models.entities.League;
 import com.example.communityminifootballleagueorganiser.models.entities.Team;
 import com.example.communityminifootballleagueorganiser.services.league_services.LeagueService;
+import com.example.communityminifootballleagueorganiser.services.player_services.PlayerService;
 import com.example.communityminifootballleagueorganiser.services.team_services.TeamService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -27,10 +28,12 @@ public class LeagueController {
 
     private final LeagueService leagueService;
     private final TeamService teamService;
+    private final PlayerService playerService;
 
-    public LeagueController(LeagueService leagueService, TeamService teamService) {
+    public LeagueController(LeagueService leagueService, TeamService teamService, PlayerService playerService) {
         this.leagueService = leagueService;
         this.teamService = teamService;
+        this.playerService = playerService;
     }
 
     @PostMapping
@@ -59,7 +62,7 @@ public class LeagueController {
     }
 
     @PutMapping("/{leagueId}")
-    public ResponseEntity<LeagueDTO> updatedLeagueName(@PathVariable Long leagueId, LeagueDTO leagueDTO) {
+    public ResponseEntity<LeagueDTO> updatedLeagueName(@PathVariable Long leagueId, @RequestBody LeagueDTO leagueDTO) {
         return ResponseEntity.ok(leagueService.updateLeagueName(leagueId, leagueDTO));
     }
 
@@ -82,8 +85,24 @@ public class LeagueController {
     }
 
     @GetMapping("/{leagueId}/players")
-    public ResponseEntity<List<PlayerDTO>> getPlayersByName(@PathVariable Long leagueId) {
+    public ResponseEntity<List<PlayerDTO>> getPlayersByLeague(@PathVariable Long leagueId) {
         List<PlayerDTO> playerList = leagueService.getPlayersByLeague(leagueId);
         return ResponseEntity.ok(playerList);
+    }
+
+    @PostMapping("/{leagueId}/start")
+    public ResponseEntity<String> startLeague(@PathVariable Long leagueId) {
+        leagueService.startLeague(leagueId);
+        return ResponseEntity.ok().body("League started and schedule generated");
+    }
+
+    @GetMapping("/{leagueId}/leaderboard")
+    public ResponseEntity<List<TeamDTO>> getLeaderboardInLeague(@PathVariable Long leagueId) {
+        return ResponseEntity.ok(leagueService.getLeagueLeaderboard(leagueId));
+    }
+    @GetMapping("/{leagueId}/topscorers")
+    public ResponseEntity<List<PlayerDTO>> getTopScorers(@PathVariable Long leagueId) {
+        List<PlayerDTO> topScorers = playerService.getTopScorers(leagueId);
+        return ResponseEntity.ok(topScorers);
     }
 }

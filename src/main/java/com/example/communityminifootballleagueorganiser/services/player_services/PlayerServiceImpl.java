@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,5 +78,14 @@ public class PlayerServiceImpl implements PlayerService {
         playerServiceValidation.getValidPlayer(playerId);
         playerRepository.deleteById(playerId);
         log.info("Player with id {} deleted", playerId);
+    }
+
+    @Override
+    public List<PlayerDTO> getTopScorers(Long leagueId) {
+        List<Player> players = playerRepository.findByTeam_League_LeagueId(leagueId);
+        return players.stream()
+                .sorted(Comparator.comparingInt(Player::getGoals).reversed())
+                .map(player -> modelMapper.map(player, PlayerDTO.class))
+                .collect(Collectors.toList());
     }
 }
